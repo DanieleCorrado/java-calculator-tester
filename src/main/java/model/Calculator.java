@@ -2,13 +2,10 @@ package model;
 
 public interface Calculator {
 
-    // COSTRUTTORI
-
-
     // METODI
 
     // Calcola la somma dei numeri
-    static float add(float firstNumber, float secondNumber) throws NumberFormatException{
+    static float add(float firstNumber, float secondNumber){
 
         return firstNumber + secondNumber;
     }
