@@ -1,5 +1,7 @@
 package model;
 
+import exception.DividedByZeroException;
+
 public interface Calculator {
 
     // METODI
@@ -17,7 +19,11 @@ public interface Calculator {
     }
 
     // Calcola il rapporto tra i numeri
-    static float divide(float firstNumber, float secondNumber) {
+    static float divide(float firstNumber, float secondNumber) throws DividedByZeroException {
+
+        if (secondNumber == 0) {
+            throw new DividedByZeroException();
+        }
 
         return firstNumber / secondNumber;
     }

@@ -1,5 +1,6 @@
 package model;
 
+import exception.DividedByZeroException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -107,7 +108,7 @@ class CalculatorTest {
         float[] firstNumbers = new float[100];
 
         for (int i = 0; i < firstNumbers.length; i++) {
-            firstNumbers[i] = firstRandom.nextFloat(1000);
+            firstNumbers[i] = firstRandom.nextFloat(1,1000);
         }
 
         int secondSeed = 987654321;
@@ -115,22 +116,22 @@ class CalculatorTest {
         float[] secondNumbers = new float[100];
 
         for (int i = 0; i < secondNumbers.length; i++) {
-            secondNumbers[i] = secondRandom.nextFloat(1000);
+            secondNumbers[i] = secondRandom.nextFloat(1,1000);
         }
 
         // Controlla se la divisione è correttà
 
-        assertEquals(Float.NaN, Calculator.divide((float) 0.0, (float) 0.0));
+        assertThrows(DividedByZeroException.class, () -> {Calculator.divide((float) 0.0, (float) 0.0);});
 
         for (float firstNumber : firstNumbers) {
 
-            assertEquals(Float.POSITIVE_INFINITY, Calculator.divide(firstNumber, (float) 0.0));
+            assertThrows(DividedByZeroException.class, () -> {Calculator.divide(firstNumber, (float) 0.0);});
 
             for (float secondNumber : secondNumbers) {
 
                 assertEquals(firstNumber / secondNumber, Calculator.divide(firstNumber, secondNumber));
 
-                assertEquals(Float.POSITIVE_INFINITY, Calculator.divide(secondNumber, (float) 0.0));
+                assertThrows(DividedByZeroException.class, () -> {Calculator.divide(secondNumber, (float) 0.0);});
 
             }
         }
